@@ -13,7 +13,7 @@ class RAG:
 
     @property
     def num_nodes(self) -> int:
-        return self._adjacency_matrix.shape[0] if self._adjacency_matrix else 0
+        return self._adjacency_matrix.shape[0] if self._adjacency_matrix is not None else 0
 
 
 def build_rag_mat(label_map: np.ndarray, connectivity: np.ndarray) -> np.ndarray:
@@ -30,7 +30,7 @@ def build_rag_mat(label_map: np.ndarray, connectivity: np.ndarray) -> np.ndarray
                     and nc >= 0
                     and nl < label_map.shape[0]
                     and nc < label_map.shape[1]
-                    and (n_lbl := label_map[nl, dc]) != cur
+                    and (n_lbl := label_map[nl, nc]) != cur
                 ):
                     res[cur, n_lbl] = res[n_lbl, cur] = True
 
