@@ -1,0 +1,4 @@
+site_name: Deep Hierarchy
+theme:
+  name: material
+docs_dir: doc
