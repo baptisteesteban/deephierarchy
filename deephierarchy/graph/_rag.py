@@ -1,4 +1,5 @@
 import numpy as np
+from numba import njit
 
 from deephierarchy.core import Connectivity
 
@@ -13,26 +14,32 @@ class RAG:
 
     @property
     def num_nodes(self) -> int:
-        return self._adjacency_matrix.shape[0] if self._adjacency_matrix is not None else 0
+        return (
+            self._adjacency_matrix.shape[0] if self._adjacency_matrix is not None else 0
+        )
 
 
+@njit
 def build_rag_mat(label_map: np.ndarray, connectivity: np.ndarray) -> np.ndarray:
     N = label_map.max() + 1
-    res = np.zeros((N, N), dtype=bool)
+    res = np.zeros((N, N), dtype=np.bool_)
+    n_rows = label_map.shape[0]
+    n_cols = label_map.shape[1]
+    n_neighbors = connectivity.shape[0]
 
-    for li in range(label_map.shape[0]):
-        for c in range(label_map.shape[1]):
+    for li in range(n_rows):
+        for c in range(n_cols):
             cur = label_map[li, c]
-            for dl, dc in connectivity:
-                nl, nc = li + dl, c + dc
-                if (
-                    nl >= 0
-                    and nc >= 0
-                    and nl < label_map.shape[0]
-                    and nc < label_map.shape[1]
-                    and (n_lbl := label_map[nl, nc]) != cur
-                ):
-                    res[cur, n_lbl] = res[n_lbl, cur] = True
+            for k in range(n_neighbors):
+                dl = connectivity[k, 0]
+                dc = connectivity[k, 1]
+                nl = li + dl
+                nc = c + dc
+                if 0 <= nl < n_rows and 0 <= nc < n_cols:
+                    n_lbl = label_map[nl, nc]
+                    if n_lbl != cur:
+                        res[cur, n_lbl] = True
+                        res[n_lbl, cur] = True
 
     return res
 
