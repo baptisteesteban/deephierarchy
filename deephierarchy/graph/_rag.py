@@ -14,9 +14,7 @@ class RAG:
 
     @property
     def num_nodes(self) -> int:
-        return (
-            self._adjacency_matrix.shape[0] if self._adjacency_matrix is not None else 0
-        )
+        return self._adjacency_matrix.shape[0] if self._adjacency_matrix is not None else 0
 
 
 @njit

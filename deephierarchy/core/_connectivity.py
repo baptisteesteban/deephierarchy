@@ -1,6 +1,6 @@
-import numpy as np
-
 from typing import Iterable
+
+import numpy as np
 
 
 class Connectivity:
@@ -24,6 +24,4 @@ class Connectivity:
 
 C4 = Connectivity([[0, -1], [-1, 0], [0, 1], [1, 0]])
 
-C8 = Connectivity(
-    [[0, -1], [-1, -1], [-1, 0], [-1, 1], [0, 1], [1, 1], [1, 0], [1, -1]]
-)
+C8 = Connectivity([[0, -1], [-1, -1], [-1, 0], [-1, 1], [0, 1], [1, 1], [1, 0], [1, -1]])
