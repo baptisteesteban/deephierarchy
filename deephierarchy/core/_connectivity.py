@@ -5,7 +5,8 @@ from typing import Iterable
 
 class Connectivity:
     def __init__(self, data: Iterable[int]):
-        assert data.ndim == 2
+        offsets = np.asarray(data, dtype=int)
+        assert offsets.ndim == 2
         self._data = np.asarray(data, dtype=int)
 
     @property
@@ -15,6 +16,10 @@ class Connectivity:
     @property
     def ndim(self) -> int:
         return self._data.shape[1]
+
+    def __call__(self, p: np.ndarray) -> np.ndarray:
+        assert p.shape[-1] == self.ndim
+        return p + self.data
 
 
 C4 = Connectivity([[0, -1], [-1, 0], [0, 1], [1, 0]])
