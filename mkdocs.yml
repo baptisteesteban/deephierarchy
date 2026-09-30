@@ -12,3 +12,5 @@ plugins:
       execute: true
       allow_errors: false
       no_prompt: true
+extra_javascript:
+- https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
