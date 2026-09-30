@@ -12,8 +12,12 @@ dependencies = [
 
 [project.optional-dependencies]
 doc = [
+    "jupyter>=1.1.1",
+    "matplotlib>=3.11.2",
     "mkdocs>=1.6.1",
+    "mkdocs-jupyter>=0.26.3",
     "mkdocs-material>=9.7.7",
+    "scikit-image>=0.26.0",
 ]
 
 [dependency-groups]

@@ -1,4 +1,14 @@
 site_name: Deep Hierarchy
+use_directory_urls: false
 theme:
   name: material
 docs_dir: doc
+nav:
+  - Home: index.md
+  - Examples:
+      - Region Adjacency Graph: examples/Region Adjacency Graph.ipynb
+plugins:
+  - mkdocs-jupyter:
+      execute: true
+      allow_errors: false
+      no_prompt: true

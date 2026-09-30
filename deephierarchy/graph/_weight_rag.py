@@ -4,7 +4,7 @@ from deephierarchy.graph import RAG
 
 
 def weight_rag_dist_np(adjacency_matrix: np.ndarray, mean_value: np.ndarray) -> np.ndarray:
-    res = np.zeros(adjacency_matrix.shape, dtype=float64)
+    res = np.full(adjacency_matrix.shape, -1, dtype=np.float64)
 
     for n1 in range(adjacency_matrix.shape[0]):
         for n2 in range(n1 + 1, adjacency_matrix.shape[1]):
@@ -23,7 +23,7 @@ def weight_rag_dist(rag: RAG, mean_value: np.ndarray) -> np.ndarray:
 def weight_rag_weighted_area_dist_np(
     adjacency_matrix: np.ndarray, area: np.ndarray, sum: np.ndarray
 ) -> np.ndarray:
-    res = np.zeros(adjacency_matrix.shape, dtype=float64)
+    res = np.full(adjacency_matrix.shape, -1, dtype=np.float64)
 
     for n1 in range(adjacency_matrix.shape[0]):
         for n2 in range(n1 + 1, adjacency_matrix.shape[1]):
@@ -37,3 +37,7 @@ def weight_rag_weighted_area_dist_np(
                 +area[n2] * np.linalg.norm(n2_mean - union_mean)
 
     return res
+
+
+def weight_rag_weighted_area_dist(rag: RAG, area: np.ndarray, sum: np.ndarray) -> np.ndarray:
+    return weight_rag_weighted_area_dist_np(rag.adjacency_matrix, area, sum)
