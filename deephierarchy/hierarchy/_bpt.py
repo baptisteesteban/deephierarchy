@@ -1,6 +1,7 @@
 import numpy as np
 
 from deephierarchy.graph import RAG
+from deephierarchy.tree import Tree
 
 from heapq import heappush, heappop
 
@@ -48,12 +49,13 @@ def _bpt_core(rag_adjacency_matrix: np.ndarray, rag_weight_matrix: np.ndarray, _
             union_mean = union_sum / union_area
             dis = area[nn] * np.linalg.norm((sum_v[nn] / area[nn]) - union_mean) + area[num_nodes] * np.linalg.norm((sum_v[num_nodes] / area[num_nodes]) - union_mean)
             if weights[n1, nn] >= 0 or weights[n2, nn]:
-                weight[num_nodes, nn] = weight[nn, num_nodes] = dis
-                heappush(heap, (weight[num_nodes, nn], (num_nodes, nn)))
+                weights[num_nodes, nn] = weights[nn, num_nodes] = dis
+                heappush(heap, (weights[num_nodes, nn], (num_nodes, nn)))
 
         num_nodes += 1
     
     return parent
 
-def bpt(rag: RAG, edge_weights: np.ndarray, area: np.ndarray, sum_v: np.ndarray) -> np.ndarray:
-    return _bpt_core(rag.adjacency_matrix, edge_weights, area, sum_v)
+def bpt(rag: RAG, edge_weights: np.ndarray, area: np.ndarray, sum_v: np.ndarray, label_map: np.ndarray) -> Tree:
+    parent = _bpt_core(rag.adjacency_matrix, edge_weights, area, sum_v)
+    return Tree(parent, label_map)
