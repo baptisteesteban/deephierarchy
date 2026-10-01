@@ -5,8 +5,11 @@ import numpy as np
 # * Cut from altitude
 # * Saliency map
 
+
 class Tree:
-    def __init__(self, parent: np.ndarray, node_map: np.ndarray, altitude: np.ndarray | None = None):
+    def __init__(
+        self, parent: np.ndarray, node_map: np.ndarray, altitude: np.ndarray | None = None
+    ):
         self._parent = parent
         self._node_map = node_map
         self._altitude = altitude
