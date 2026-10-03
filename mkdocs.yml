@@ -6,11 +6,15 @@ docs_dir: doc
 nav:
   - Home: index.md
   - Examples:
-      - Region Adjacency Graph: examples/Region Adjacency Graph.ipynb
+      - Region Adjacency Graph: examples/rag.py
 plugins:
   - mkdocs-jupyter:
       execute: true
       allow_errors: false
       no_prompt: true
+markdown_extensions:
+  - pymdownx.arithmatex:
+      generic: true
 extra_javascript:
+- js/mathjax.js
 - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
