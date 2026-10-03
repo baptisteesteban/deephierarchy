@@ -12,8 +12,8 @@
 #     name: python3
 # ---
 
-# %% [markdown] 
-# 
+# %% [markdown]
+#
 # This page presents an example of usage of the Deep Hierarchy framework in
 # order to build the region adjacency graph (RAG) of an image.
 
@@ -38,9 +38,7 @@ from skimage.segmentation import mark_boundaries, slic
 #
 # First of all, we import the different functions and classes required to
 # compute the region adjacency graph.
-
 # %%
-
 from deephierarchy.core import C4
 from deephierarchy.graph import build_rag, weight_rag_weighted_area_dist
 from deephierarchy.labeling import compute_area, compute_sum, compute_sum_p
@@ -87,17 +85,20 @@ centroid = sum_p / area[:, None]
 #
 # Finally, we compute the edge weight of the rag using the following edge weight
 # function<a href="#note1"><sup>[1]</sup></a>:
-# 
+#
 # $$
-# 
-# w(\mathcal{R}_1, \mathcal{R}_2) = \mathcal{A}(\mathcal{R}_1) \times
+#
+# \begin{align*}
+# w(\mathcal{R}_1, \mathcal{R}_2) & = \mathcal{A}(\mathcal{R}_1) \times
 # \|\mathcal{M}(\mathcal{R}_1) - \mathcal{M}(\mathcal{R}_1 \cup
-# \mathcal{R}_2)\|_2 + \mathcal{A}(\mathcal{R}_2) \times
+# \mathcal{R}_2)\|_2\\
+#  & + \mathcal{A}(\mathcal{R}_2) \times
 # \|\mathcal{M}(\mathcal{R}_2) - \mathcal{M}(\mathcal{R}_1 \cup
-# \mathcal{R}_2)\|_2
-# 
+# \mathcal{R}_2)\|_2\\
+# \end{align*}
+#
 # $$
-# 
+#
 # with $\mathcal{M}(\mathcal{R})$ is the mean value of $\mathcal{R}$ and
 # $\mathcal{A}(\mathcal{R})$ is the area (number of pixels) of $\mathcal{R}$.
 
@@ -108,7 +109,7 @@ rag_weights = weight_rag_weighted_area_dist(rag, area, sum_v)
 # %% [markdown]
 #
 # To conclude, we display the region adjacency graph with edges colored
-# according to their weight. 
+# according to their weight.
 
 # %%
 
@@ -135,11 +136,11 @@ plt.show()
 # %% [markdown]
 #
 # **References**
-# 
+#
 # <div id="note1">
-#     
+#
 # [1]: Luis Garrido, Philippe Salembier, David Garcia. *Extensive operators in
 #     partition lattices for image sequence analysis*.
 #     [10.1016/S0165-1684(98)00004-8](https://doi.org/10.1016/S0165-1684(98)00004-8)
-# 
+#
 # </div>
